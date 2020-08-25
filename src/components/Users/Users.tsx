@@ -1,6 +1,8 @@
 import React from 'react';
 import {UsersDataType} from "../../redux/usersReducer";
 import styles from './Users.module.css'
+import axios from 'axios'
+import userPhoto from '../../assets/images/user.png'
 
 type UsersComponentType = {
     follow: (userId: number) => void
@@ -11,25 +13,24 @@ type UsersComponentType = {
 
 export const Users = (props: UsersComponentType) => {
 
-    if (props.users.length === 0) {
+    let getUsers = () => {
+        if (props.users.length === 0) {
 
-        axios.get("");
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                props.setUsers(response.data.items);
+            });
 
-        props.setUsers([
-            {id: 1, photoUrl: 'https://b7.pngbarn.com/png/394/96/engineered-stone-countertop-kitchen-cabinet-granite-q-avatar-png-clip-art-thumbnail.png', followed: false, fullName: 'Sasha', status: "I am cool!", location: {city: "Minsk", country: "Belarus"} },
-            {id: 2, photoUrl: 'https://b7.pngbarn.com/png/394/96/engineered-stone-countertop-kitchen-cabinet-granite-q-avatar-png-clip-art-thumbnail.png', followed: true, fullName: 'Masha', status: "no pain no gain!", location: {city: "Minsk", country: "Belarus"} },
-            {id: 3, photoUrl: 'https://b7.pngbarn.com/png/394/96/engineered-stone-countertop-kitchen-cabinet-granite-q-avatar-png-clip-art-thumbnail.png', followed: false, fullName: 'Pasha', status: "xD", location: {city: "St-pi", country: "Russia"} },
-            {id: 4, photoUrl: 'https://b7.pngbarn.com/png/394/96/engineered-stone-countertop-kitchen-cabinet-granite-q-avatar-png-clip-art-thumbnail.png', followed: true, fullName: 'Dasha', status: "from Russia with love!", location: {city: "Moskow", country: "Russia"} }
-        ]);
+        }
     }
 
     return (
         <div>
+            <button onClick={getUsers}>GET USERS</button>
             {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img className={styles.userPhoto} src={u.photoUrl}/>
+                            <img className={styles.userPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
                         </div>
                         <div>
                             { u.followed
@@ -39,12 +40,12 @@ export const Users = (props: UsersComponentType) => {
                      </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{"u.location.country"}</div>
+                            <div>{"u.location.city"}</div>
                         </span>
             </span>
                 </div>)

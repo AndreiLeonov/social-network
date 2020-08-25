@@ -11,10 +11,10 @@ type UsersPageType = {
 export type UsersDataType = {
     id: number
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationDataType
-    photoUrl: string
+    photos: string
 }
 
 type LocationDataType = {
