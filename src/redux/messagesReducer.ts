@@ -1,4 +1,5 @@
-import {ActionsType, MessagesPageType, PostsDataType, SendMessageType, UpdateNewMessageDataType} from "./store";
+import {MessagesPageType, SendMessageType, UpdateNewMessageDataType} from "./store";
+import { ActionsType } from "./usersReducer";
 
 const UPDATE_NEW_MESSAGE_DATA = "UPDATE-NEW-MESSAGE-DATA";
 const SEND_MESSAGE = "SEND-MESSAGE"

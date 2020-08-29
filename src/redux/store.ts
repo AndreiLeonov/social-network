@@ -1,6 +1,6 @@
 import {profileReducer} from "./profileReducer";
 import { messagesReducer } from "./messagesReducer";
-import { FollowUsersType, UnfollowUsersType, SetUsersType } from "./usersReducer";
+import { FollowUsersType, UnfollowUsersType, SetUsersType, ActionsType } from "./usersReducer";
 
 let store: StoreType = {
     _state: {
@@ -91,8 +91,6 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
 }
-
-export type ActionsType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageDataType | SendMessageType | FollowUsersType | UnfollowUsersType | SetUsersType
 
 export type AddPostActionType = {
     type: 'ADD-POST'
