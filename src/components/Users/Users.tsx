@@ -11,31 +11,40 @@ type UsersComponentType = {
     users: Array<UsersDataType>
 }
 
-export const Users = (props: UsersComponentType) => {
+export class Users extends React.Component<UsersComponentType>{
 
-    let getUsers = () => {
-        if (props.users.length === 0) {
-
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items);
-            });
-
-        }
+    constructor(props: any) {
+        super(props);
+                axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                    this.props.setUsers(response.data.items);
+                });
     }
 
-    return (
+    // getUsers = () => {
+    //     if (this.props.users.length === 0) {
+    //
+    //         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+    //             this.props.setUsers(response.data.items);
+    //         });
+    //     }
+    // }
+
+    render() {
+        return (
         <div>
-            <button onClick={getUsers}>GET USERS</button>
+            {/*<button onClick={this.getUsers}>GET USERS</button>*/}
             {
-                props.users.map(u => <div key={u.id}>
+                this.props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img className={styles.userPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                            <img className={styles.userPhoto} src={
+                                //u.photos.small != null ? u.photos.small :
+                                userPhoto}/>
                         </div>
                         <div>
                             { u.followed
-                                ? <button onClick={ () => {props.unfollow(u.id)} }>UNFOLLOW</button>
-                                : <button onClick={ () => {props.follow(u.id)} }>FOLLOW</button>}
+                                ? <button onClick={ () => {this.props.unfollow(u.id)} }>UNFOLLOW</button>
+                                : <button onClick={ () => {this.props.follow(u.id)} }>FOLLOW</button>}
                         </div>
                      </span>
                     <span>
@@ -52,4 +61,51 @@ export const Users = (props: UsersComponentType) => {
             }
         </div>
     )
+    }
 }
+
+
+// export const Users = (props: UsersComponentType) => {
+//
+//     let getUsers = () => {
+//         if (props.users.length === 0) {
+//
+//             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+//                 props.setUsers(response.data.items);
+//             });
+//
+//         }
+//     }
+//
+//     return (
+//         <div>
+//             <button onClick={getUsers}>GET USERS</button>
+//             {
+//                 props.users.map(u => <div key={u.id}>
+//                     <span>
+//                         <div>
+//                             <img className={styles.userPhoto} src={
+//                                 //u.photos.small != null ? u.photos.small :
+//                                 userPhoto}/>
+//                         </div>
+//                         <div>
+//                             { u.followed
+//                                 ? <button onClick={ () => {props.unfollow(u.id)} }>UNFOLLOW</button>
+//                                 : <button onClick={ () => {props.follow(u.id)} }>FOLLOW</button>}
+//                         </div>
+//                      </span>
+//                     <span>
+//                         <span>
+//                             <div>{u.name}</div>
+//                             <div>{u.status}</div>
+//                         </span>
+//                         <span>
+//                             <div>{"u.location.country"}</div>
+//                             <div>{"u.location.city"}</div>
+//                         </span>
+//             </span>
+//                 </div>)
+//             }
+//         </div>
+//     )
+// }
