@@ -106,8 +106,6 @@ export type UpdateNewMessageDataType = {
     newMessageText: string
 }
 
-
-
 export type SendMessageType = {
     type: "SEND-MESSAGE"
 }
