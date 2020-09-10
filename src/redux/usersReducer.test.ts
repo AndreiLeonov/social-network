@@ -38,11 +38,11 @@ test('user should be unfollow', () => {
 
 test('user should be set', () => {
 
-    const action = setUsersAC();
+    const action = setUsersAC( );
 
     const endState = usersReducer(startState, action)
 
-    expect(endState["users"].length).toBe(0);
+    expect(endState.users.length).toBe(1);
 
 });
 

@@ -36,8 +36,9 @@ export let Users = (props: UsersPropsType) => {
                     <span>
                         <div>
                             <img className={styles.userPhoto} src={
-                                //u.photos.small != null ? u.photos.small :
-                                userPhoto}/>
+                                u.photos.small !== null
+                                    ? u.photos.small
+                                    : userPhoto}/>
                         </div>
                         <div>
                             {u.followed

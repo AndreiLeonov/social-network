@@ -9,7 +9,8 @@ const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 type UsersPageType = {
     users: Array <UsersDataType>
@@ -21,7 +22,10 @@ export type UsersDataType = {
     name: string
     status: string
     location: LocationDataType
-    photos: string
+    photos:  {
+        small: string
+        large: string
+    }
 }
 
 type LocationDataType = {
@@ -54,14 +58,20 @@ export type FollowUsersType = {
     userId: number
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageDataType | SendMessageType | FollowUsersType | UnfollowUsersType | SetUsersType | SetCurrentPageType | setTotalUsersCountType
+export type ToggleIsFetchingType = {
+    type: 'TOGGLE_IS_FETCHING'
+    isFetching: boolean
+}
+
+export type ActionsType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageDataType | SendMessageType | FollowUsersType | UnfollowUsersType | SetUsersType | SetCurrentPageType | setTotalUsersCountType | ToggleIsFetchingType
 
 
 let initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 2
+    currentPage: 1,
+    isFetching: true
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsType) => {
@@ -96,7 +106,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.totalCount}
-
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
         default:
             return state;
     }
@@ -134,5 +145,12 @@ export const setTotalUsersCountAC = (totalCount: number): setTotalUsersCountType
     return {
         type: "SET_TOTAL_USERS_COUNT",
         totalCount: totalCount
+    }
+}
+
+export const setIsFetchingAC = (isFetching: boolean): ToggleIsFetchingType => {
+    return {
+        type: 'TOGGLE_IS_FETCHING',
+        isFetching: isFetching
     }
 }

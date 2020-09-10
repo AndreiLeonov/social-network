@@ -1,6 +1,4 @@
-import {AddPostActionType, PostsDataType, UpdateNewPostActionType, ProfilePageType} from "./store";
-import {ActionsType} from "./usersReducer";
-import {messagesReducer, sendMessageCreator} from "./messagesReducer";
+
 import {addPostActionCreator, profileReducer, UpdateNewPostActionCreator} from "./profileReducer";
 
 let startState = {
