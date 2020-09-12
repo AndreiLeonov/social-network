@@ -1,4 +1,4 @@
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC, usersReducer} from "./usersReducer";
+import {follow, setCurrentPage, setTotalUsersCount, setUsers, unfollow, usersReducer} from "./usersReducer";
 
 let startState = {
     users: [],
@@ -18,7 +18,7 @@ beforeEach( () => {
 
 test('user should be follow', () => {
 
-    const action = followAC(1);
+    const action = follow(1);
 
     const endState = usersReducer(startState, action)
 
@@ -28,7 +28,7 @@ test('user should be follow', () => {
 
 test('user should be unfollow', () => {
 
-    const action = unfollowAC(1);
+    const action = unfollow(1);
 
     const endState = usersReducer(startState, action)
 
@@ -38,7 +38,7 @@ test('user should be unfollow', () => {
 
 test('user should be set', () => {
 
-    const action = setUsersAC( );
+    const action = setUsers( );
 
     const endState = usersReducer(startState, action)
 
@@ -48,7 +48,7 @@ test('user should be set', () => {
 
 test('page should be current', () => {
 
-    const action = setCurrentPageAC(1);
+    const action = setCurrentPage(1);
 
     const endState = usersReducer(startState, action)
 
@@ -58,7 +58,7 @@ test('page should be current', () => {
 
 test('total user count should be correct', () => {
 
-    const action = setTotalUsersCountAC(1);
+    const action = setTotalUsersCount(1);
 
     const endState = usersReducer(startState, action)
 
