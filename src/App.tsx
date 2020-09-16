@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import { Profile } from './components/Profile/Profile';
+import ProfileCont from './components/Profile/ProfileCont';
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {News} from "./components/News/News";
@@ -23,7 +23,7 @@ function App() {
                            render={ () =>  <DialogsContainer />
                     }/>
                     <Route path='/profile'
-                           render={ () =>  <Profile />  }/>
+                           render={ () =>  <ProfileCont />  }/>
                     <Route path='/news' render={ () =>  <News/>  }/>
                     <Route path='/music' render={ () =>  <Music/>  }/>
                     <Route path='/settings' render={ () =>  <Settings/>  }/>

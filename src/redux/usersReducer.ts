@@ -1,6 +1,6 @@
 import {
     AddPostActionType,
-    SendMessageType,
+    SendMessageType, SetUserProfileType,
     UpdateNewMessageDataType,
     UpdateNewPostActionType
 } from "./store";
@@ -63,7 +63,7 @@ export type ToggleIsFetchingType = {
     isFetching: boolean
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageDataType | SendMessageType | FollowUsersType | UnfollowUsersType | SetUsersType | SetCurrentPageType | setTotalUsersCountType | ToggleIsFetchingType
+export type ActionsType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageDataType | SendMessageType | FollowUsersType | UnfollowUsersType | SetUsersType | SetCurrentPageType | setTotalUsersCountType | ToggleIsFetchingType | SetUserProfileType
 
 
 let initialState = {

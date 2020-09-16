@@ -10,7 +10,7 @@ let store: StoreType = {
                 {id: 2, message: "It's my first post!", likeCounter: 10},
                 {id: 3, message: "How a u dudes?", likeCounter: 7}
             ],
-            newPostText: 'SOME TEXT'
+            newPostText: 'SOME TEXT',
         },
         messagesPage: {
             dialogsData: [
@@ -108,6 +108,11 @@ export type UpdateNewMessageDataType = {
 
 export type SendMessageType = {
     type: "SEND-MESSAGE"
+}
+
+export type SetUserProfileType = {
+    type: 'SET_USER_PROFILE'
+    profile: any
 }
 
 export default store;
