@@ -1,10 +1,34 @@
-import {AddPostActionType, PostsDataType, UpdateNewPostActionType, ProfilePageType, SetUserProfileType} from "./store";
-import {ActionsType} from "./usersReducer";
-
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
+export type PostsDataType = {
+    id: number
+    message: string
+    likeCounter: number
+}
+
+export type ProfilePageType = {
+    postsData: Array<PostsDataType>
+    newPostText: string
+}
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type UpdateNewPostActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type SetUserProfileType = {
+    type: 'SET_USER_PROFILE'
+    profile: any
+}
+
+
+type ActionsType = AddPostActionType | UpdateNewPostActionType | SetUserProfileType
 
 let initialState = {
     postsData: [

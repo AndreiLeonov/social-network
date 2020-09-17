@@ -22,7 +22,7 @@ function App() {
                     <Route path='/dialogs'
                            render={ () =>  <DialogsContainer />
                     }/>
-                    <Route path='/profile'
+                    <Route path='/profile/:userId?' // userId - параметр для того, чтобы взять id пользователя для withRouter и далее отрисовать его профиль; ? - делает параметр необязательным
                            render={ () =>  <ProfileCont />  }/>
                     <Route path='/news' render={ () =>  <News/>  }/>
                     <Route path='/music' render={ () =>  <Music/>  }/>

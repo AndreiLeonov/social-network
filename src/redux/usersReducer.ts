@@ -1,10 +1,3 @@
-import {
-    AddPostActionType,
-    SendMessageType, SetUserProfileType,
-    UpdateNewMessageDataType,
-    UpdateNewPostActionType
-} from "./store";
-
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -33,37 +26,37 @@ type LocationDataType = {
     country: string
 }
 
-export type SetUsersType = {
+type SetUsersType = {
     type: 'SET_USERS'
     users: Array<UsersDataType>
 }
 
-export type SetCurrentPageType = {
+type SetCurrentPageType = {
     type: 'SET_CURRENT_PAGE'
     currentPage: number
 }
 
-export type setTotalUsersCountType = {
+type setTotalUsersCountType = {
     type: 'SET_TOTAL_USERS_COUNT'
     totalCount: number
 }
 
-export type UnfollowUsersType = {
+type UnfollowUsersType = {
     type: 'UNFOLLOW'
     userId: number
 }
 
-export type FollowUsersType = {
+type FollowUsersType = {
     type: 'FOLLOW'
     userId: number
 }
 
-export type ToggleIsFetchingType = {
+type ToggleIsFetchingType = {
     type: 'TOGGLE_IS_FETCHING'
     isFetching: boolean
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageDataType | SendMessageType | FollowUsersType | UnfollowUsersType | SetUsersType | SetCurrentPageType | setTotalUsersCountType | ToggleIsFetchingType | SetUserProfileType
+type ActionsType = FollowUsersType | UnfollowUsersType | SetUsersType | SetCurrentPageType | setTotalUsersCountType | ToggleIsFetchingType
 
 
 let initialState = {

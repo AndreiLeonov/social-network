@@ -1,8 +1,32 @@
-import {MessagesPageType, SendMessageType, UpdateNewMessageDataType} from "./store";
-import { ActionsType } from "./usersReducer";
-
 const UPDATE_NEW_MESSAGE_DATA = "UPDATE-NEW-MESSAGE-DATA";
 const SEND_MESSAGE = "SEND-MESSAGE"
+
+export type MessagesPageType = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    newMessageData: string
+}
+
+export type MessagesDataType = {
+    id: number
+    message: string
+}
+
+export type DialogsDataType = {
+    id: number
+    name: string
+}
+
+type SendMessageType = {
+    type: "SEND-MESSAGE"
+}
+
+type UpdateNewMessageDataType = {
+    type: 'UPDATE-NEW-MESSAGE-DATA'
+    newMessageText: string
+}
+
+type ActionsType = SendMessageType | UpdateNewMessageDataType
 
 let initialState = {
     dialogsData: [
