@@ -19,7 +19,6 @@ export function ProfileInfo(props: any) {
                 <div><img src={props.profile.photos.large}/></div>
                 <p>UserId: {props.profile.userId}</p>
                 <p>Ищу работу: {props.profile.lookingForAJob === true ? 'да' : 'нет'}</p>
-                ava + descr
             </div>
         </div>
     );
