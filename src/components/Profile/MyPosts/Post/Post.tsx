@@ -1,13 +1,14 @@
 import React from "react";
 import classes from './Post.module.css';
 import { PostsDataType } from "../../../../redux/profileReducer";
+import userPhoto from "../../../../assets/images/user.png";
 
 function Post (props: PostsDataType) {
     return (
         <div>
             <div className={classes.item}>
                 <img
-                    src="https://whatmessenger.ru/s3/uploads/posts/2018-07/1530544023_n6fgwzftnvg.jpg?b0a749c03fe00fd9b292c90620639415"/>
+                    src={userPhoto}/>
                 {props.message}
                 <div>
                     <span>Likes:</span>
