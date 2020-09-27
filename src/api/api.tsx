@@ -18,4 +18,4 @@ export const usersAPI = {
 
 }
 
-//сделать follow unfollow (Users), auth/me(HeaderContainer), profileCont(?),
+//сделать по аналогии follow unfollow (Users), auth/me(HeaderContainer), profileCont(?),
