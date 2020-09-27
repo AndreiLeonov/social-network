@@ -27,8 +27,9 @@ export type SetUserProfileType = {
     profile: any
 }
 
-
-type ActionsType = AddPostActionType | UpdateNewPostActionType | SetUserProfileType
+export type ActionsType = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof UpdateNewPostActionCreator> |
+    ReturnType<typeof SetUserProfile>
 
 let initialState = {
     postsData: [
