@@ -94,6 +94,8 @@ export const SetUserProfile = (profile: any): SetUserProfileType => {
     }
 }
 
+//Thunk
+
 export const getUserProfile = (userId: number) => {
     return (dispatch: any) => {
         usersAPI.getProfile(userId)

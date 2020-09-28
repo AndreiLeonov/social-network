@@ -228,5 +228,3 @@ export const unfollow = (userId: number) => {
             });
     }
 }
-
-//Добавить HeaderContainer, ProfileContainer и другие ? : вынести в API и зарефакторить в Санку

@@ -48,6 +48,7 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
     }
 }
 
+//Thunk
 export const getAuthUserData = () => {
     return (dispatch: any) => {
         authAPI.authMe()
