@@ -12,14 +12,11 @@ import {Preloader} from "../common/Preloader/Preloader";
 export type UsersComponentType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    //setUsers: (users: Array<UsersDataType>) => void
     users: Array<UsersDataType>
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    //setTotalUsersCount: (totalCount: number) => void
     setCurrentPage: (pageNumber: number) => void
-    //setIsFetching:  (isFetching: boolean)=> void
     isFetching: boolean
     setIsFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
