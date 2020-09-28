@@ -1,10 +1,8 @@
 import React from 'react'
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
-import {setIsFollowingProgress, UsersDataType} from "../../redux/usersReducer";
+import {UsersDataType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -50,24 +48,10 @@ export let Users = (props: UsersPropsType) => {
                         <div>
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some (id => id === u.id)} onClick={() => {
-                                    props.setIsFollowingProgress (true, u.id );
-                                    usersAPI.unfollow(u.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                            props.setIsFollowingProgress(false, u.id);
-                                        });
+                                    props.unfollow(u.id);
                                 }}>UNFOLLOW</button>
                                 : <button disabled={props.followingInProgress.some (id => id === u.id)} onClick={() => {
-                                    props.setIsFollowingProgress(true, u.id);
-                                    usersAPI.follow(u.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.setIsFollowingProgress(false, u.id);
-                                        });
+                                    props.follow(u.id);
                                 }}>FOLLOW</button>}
                         </div>
                      </span>
