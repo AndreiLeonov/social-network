@@ -2,7 +2,25 @@ import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile} from "../../redux/profileReducer";
-import {Redirect, withRouter} from "react-router-dom";
+import {Redirect, withRouter, RouteComponentProps} from "react-router-dom";
+
+// type PropsParamsType = {
+//     userId: number
+// }
+//
+// type MapStatePropsType = {
+//     profile: any
+//     Auth: boolean
+//
+// }
+//
+// type MapDispatchPropsType = {
+//     getUserProfile: (userId: number) => void
+//
+// }
+//
+// type OwnPropsType = MapStatePropsType & MapDispatchPropsType
+// type PropsType = RouteComponentProps<PropsParamsType> & OwnPropsType
 
 class ProfileCont extends React.Component<any> {
 
