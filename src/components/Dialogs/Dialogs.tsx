@@ -3,11 +3,13 @@ import classes from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogsItem";
 import { Message } from "./Message/Message";
 import {MessagesPageType} from "../../redux/messagesReducer";
+import { Redirect } from "react-router-dom"
 
 type DialogsComponentType = {
     updateNewMessageData: (newMessageText: string) => void
     sendMessage: () => void
     messagesPage: MessagesPageType
+    Auth: boolean
 }
 
 export function Dialogs(props: DialogsComponentType) {
@@ -25,6 +27,11 @@ export function Dialogs(props: DialogsComponentType) {
         let newMessageText = e.target.value;
         props.updateNewMessageData(newMessageText);
     }
+
+    if (!props.Auth) {
+       return <Redirect to={'/login'} />;
+    }
+
 
     return (
         <div className={classes.dialogs}>
