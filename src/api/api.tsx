@@ -16,15 +16,23 @@ export const usersAPI = {
             });
     },
     follow(userId: number) {
-        return instance.post(`follow/${userId}`)
+        return instance.post(`follow/${userId}`);
     },
     unfollow(userId: number) {
-        return instance.delete(`follow/${userId}`)
+        return instance.delete(`follow/${userId}`);
     },
-    getProfile(userId: number) {
-        return instance.get(`profile/`+userId)
-    }
+}
 
+export const profileAPI = {
+    getProfile(userId: number) {
+        return instance.get(`profile/` + userId);
+    },
+    getStatus (userId: number) {
+        return instance.get(`profile/status/` + userId);
+    },
+    updateStatus (status: string) {
+        return instance.put(`profile/status/`, {status: status});
+    },
 }
 
 export const authAPI = {

@@ -18,8 +18,14 @@ export function ProfileInfo(props: any) {
                 <div><img src={props.profile.photos.large}/></div>
                 <p>Ищу работу: {props.profile.lookingForAJob === true ? 'да' : 'нет'}</p>
                 <div>
-                    <ProfileStatus
-                        status={'YO!!'}/>
+                    <p>
+                        <b> Статус:
+                            <ProfileStatus
+                                status = {props.status}
+                                updateStatus = {props.updateStatus}
+                            />
+                        </b>
+                    </p>
                 </div>
             </div>
         </div>

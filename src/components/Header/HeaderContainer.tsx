@@ -4,14 +4,12 @@ import {connect} from "react-redux";
 import {getAuthUserData} from "../../redux/authReducer";
 
 type HeaderContainerType = {
-    //setAuthUserData: (id: number, email: string, login: string, isAuth: boolean) => void
     getAuthUserData: () => void
 }
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
 
     componentDidMount() {
-        //this.props.setIsFetching(true);
         this.props.getAuthUserData();
     }
 
@@ -25,7 +23,7 @@ class HeaderContainer extends React.Component<HeaderContainerType> {
 const mapStateToProps = (state: any) => {
     return {
         isAuth: state.auth.isAuth,
-        login:state.auth.login
+        login: state.auth.login
 
     }
 }
