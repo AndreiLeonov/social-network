@@ -1,10 +1,13 @@
 import React from "react";
-import {Header} from "./Header";
 import {connect} from "react-redux";
 import {getAuthUserData} from "../../redux/authReducer";
+import {AppStateType} from "../../redux/redux-store";
+import {Header} from "./Header";
 
 type HeaderContainerType = {
     getAuthUserData: () => void
+    isAuth: boolean
+    login: string | null
 }
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
@@ -20,11 +23,10 @@ class HeaderContainer extends React.Component<HeaderContainerType> {
     }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         isAuth: state.auth.isAuth,
-        login: state.auth.login
-
+        login: state.auth.login,
     }
 }
 

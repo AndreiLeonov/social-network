@@ -5,6 +5,9 @@ import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
 import thunkMiddleware from "redux-thunk"
 
+type reducersType = typeof reducers;
+
+export type AppStateType = ReturnType<reducersType>
 
 let reducers = combineReducers({
     profilePage: profileReducer,
