@@ -1,10 +1,8 @@
-const UPDATE_NEW_MESSAGE_DATA = "UPDATE-NEW-MESSAGE-DATA";
 const SEND_MESSAGE = "SEND-MESSAGE"
 
 export type MessagesPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
-    newMessageData: string
 }
 
 export type MessagesDataType = {
@@ -19,6 +17,7 @@ export type DialogsDataType = {
 
 type SendMessageType = {
     type: "SEND-MESSAGE"
+    newMessageData: string
 }
 
 type UpdateNewMessageDataType = {
@@ -46,20 +45,13 @@ let initialState = {
         {id: 4, message: 'ok'},
         {id: 5, message: 'great!'}
     ],
-    newMessageData: ''
 }
 
 export const messagesReducer = (state: MessagesPageType = initialState, action: ActionsType) => {
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_DATA:
-            return {
-                ...state,
-                newMessageData: action.newMessageText
-            };
-
         case SEND_MESSAGE:
-            let newMessageText = state.newMessageData;
+            let newMessageText = action.newMessageData;
             return {
                 ...state,
                 messagesData: [...state.messagesData, {id: 6, message: newMessageText}],
@@ -71,14 +63,9 @@ export const messagesReducer = (state: MessagesPageType = initialState, action: 
     }
 }
 
-export const sendMessageCreator = (): SendMessageType => {
+export const sendMessageCreator = (newMessageData: string): SendMessageType => {
     return {
-        type: SEND_MESSAGE
-    }
-}
-export const updateNewMessageDataCreator = (newText: string): UpdateNewMessageDataType => {
-    return {
-        type: UPDATE_NEW_MESSAGE_DATA,
-        newMessageText: newText
+        type: SEND_MESSAGE,
+        newMessageData
     }
 }

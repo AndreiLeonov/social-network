@@ -1,7 +1,6 @@
-import {usersAPI, profileAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 
@@ -13,11 +12,11 @@ export type PostsDataType = {
 
 export type ProfilePageType = {
     postsData: Array<PostsDataType>
-    newPostText: string
 }
 
 export type AddPostActionType = {
     type: 'ADD-POST'
+    newPostData: string
 }
 
 export type UpdateNewPostActionType = {
@@ -35,10 +34,10 @@ export type SetUserStatusType = {
     status: string
 }
 
-export type ActionsType = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof UpdateNewPostActionCreator> |
-    ReturnType<typeof SetUserProfile> |
-    ReturnType<typeof SetUserStatus>
+export type ActionsType =
+    | ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof SetUserProfile>
+    | ReturnType<typeof SetUserStatus>
 
 let initialState = {
     postsData: [
@@ -46,7 +45,6 @@ let initialState = {
         {id: 2, message: "It's my first post!", likeCounter: 10},
         {id: 3, message: "How a u dudes?", likeCounter: 7}
     ],
-    newPostText: 'SOME TEXT',
     profile: null,
     status: '',
 }
@@ -57,19 +55,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case ADD_POST: {
             const newPost: PostsDataType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.newPostData,
                 likeCounter: 0
             };
             return {
                 ...state,
                 postsData: [...state.postsData, newPost ],
                 newPostText: ""
-            };
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return  {
-                ...state,
-                newPostText: action.newText
             };
         }
         case SET_USER_PROFILE: {
@@ -89,15 +81,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => {
+export const addPostActionCreator = (newPostData: string): AddPostActionType => {
     return {
-        type: ADD_POST
-    }
-}
-export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostActionType => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
+        type: ADD_POST,
+        newPostData
     }
 }
 
