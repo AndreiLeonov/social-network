@@ -1,8 +1,10 @@
 import React from "react";
 import classes from './MyPosts.module.css';
 import Post from "./Post/Post";
-import { PostsDataType } from "../../../redux/profileReducer";
+import {PostsDataType} from "../../../redux/profileReducer";
 import {Form, Field, reduxForm, InjectedFormProps} from "redux-form";
+import {required, maxLengthCreator} from "../../../ utilities/validators";
+import { Textarea } from "../../common/FormControl/FormControl";
 
 type MyPostsComponentType = {
     posts: Array<PostsDataType>
@@ -16,7 +18,8 @@ export function MyPosts(props: MyPostsComponentType) {
         props.addPosts(value.newPostData);
     }
 
-    let postsElements = props.posts.map((p: PostsDataType) => <Post id={p.id} message={p.message} likeCounter={p.likeCounter}/>);
+    let postsElements = props.posts.map((p: PostsDataType) => <Post id={p.id} message={p.message}
+                                                                    likeCounter={p.likeCounter}/>);
 
     return (
         <div className={classes.PostsBlock}>
@@ -33,14 +36,17 @@ type FormDataType = {
     newPostData: string
 }
 
+const maxLength10 = maxLengthCreator(10);
+
 const MyPostsForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <Form onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    component = {"textarea"}
-                    name = {"newPostData"}
-                    placeholder = {"Write for send"}/>
+                    component={Textarea}
+                    name={"newPostData"}
+                    placeholder={"Type text"}
+                    validate={[required, maxLength10]}/>
             </div>
             <div>
                 <button className={classes.ButtonStyle}>Add post</button>
@@ -49,4 +55,4 @@ const MyPostsForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     );
 }
 
-const MyPostsReduxForm = reduxForm<FormDataType>({ form: 'MyPostsForm' })(MyPostsForm);
+const MyPostsReduxForm = reduxForm<FormDataType>({form: 'MyPostsForm'})(MyPostsForm);
