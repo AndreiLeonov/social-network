@@ -29,7 +29,7 @@ class ProfileCont extends React.Component<any> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 10950;
+            userId = this.props.id;
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
@@ -56,6 +56,8 @@ class ProfileCont extends React.Component<any> {
 let mapStateToProps = (state: any) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    id: state.auth.id,
+    isAuth: state.auth.isAuth,
 });
 
 // let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);

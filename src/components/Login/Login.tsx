@@ -28,6 +28,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     <Field component={Input} name={"rememberMe"} type="checkbox"/>
                     запомнить
                 </div>
+                {props.error && <div>{props.error}</div>}
                 <div>
                     <button>ОТПРАВИТЬ</button>
                 </div>
