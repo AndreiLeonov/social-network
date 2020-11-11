@@ -4,8 +4,16 @@
 /*    border: 3px solid red;*/
 /*}*/
 
-.error textarea, input{
+.error textarea {
     border: 3px solid red;
+}
+.error input {
+    border: 3px solid red;
+}
+
+.noError textarea, input{
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 .error span{
