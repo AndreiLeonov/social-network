@@ -191,10 +191,11 @@ export const setIsFollowingProgress = (isFetching: boolean, userId: number): Tog
 
 //Thunks
 
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (page: number, pageSize: number) => {
     return (dispatch: any) => {
         dispatch(setIsFetching(true));
-        usersAPI.getUsers(currentPage,  pageSize)
+        dispatch(setCurrentPage(page));
+        usersAPI.getUsers(page,  pageSize)
             .then(data => {
                 dispatch(setIsFetching(false));
                 dispatch(setUsers(data.items));
