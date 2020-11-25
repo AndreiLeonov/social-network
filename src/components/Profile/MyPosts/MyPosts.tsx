@@ -12,7 +12,7 @@ type MyPostsComponentType = {
     addPosts: (newPostData: string) => void
 }
 
-export function MyPosts(props: MyPostsComponentType) {
+export const MyPosts = React.memo((props: MyPostsComponentType) => {
 
     const sendPostData = (value: FormDataType) => {
         props.addPosts(value.newPostData);
@@ -30,7 +30,7 @@ export function MyPosts(props: MyPostsComponentType) {
             </div>
         </div>
     );
-}
+});
 
 type FormDataType = {
     newPostData: string
