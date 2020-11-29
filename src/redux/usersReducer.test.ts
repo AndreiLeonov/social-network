@@ -1,10 +1,18 @@
-import {follow, setCurrentPage, setTotalUsersCount, setUsers, unfollow, usersReducer} from "./usersReducer";
+import {
+    followSuccess,
+    setCurrentPage,
+    setTotalUsersCount,
+    usersReducer,
+    unfollowSuccess
+} from "./usersReducer";
 
 let startState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 2
+    currentPage: 2,
+    isFetching: true,
+    followingInProgress: [],
 };
 
 beforeEach( () => {
@@ -12,13 +20,15 @@ beforeEach( () => {
         users: [],
         pageSize: 5,
         totalUsersCount: 0,
-        currentPage: 2
+        currentPage: 2,
+        isFetching: true,
+        followingInProgress: [],
     };
 })
 
 test('user should be follow', () => {
 
-    const action = follow(1);
+    const action = followSuccess(1);
 
     const endState = usersReducer(startState, action)
 
@@ -28,21 +38,11 @@ test('user should be follow', () => {
 
 test('user should be unfollow', () => {
 
-    const action = unfollow(1);
+    const action = unfollowSuccess(1);
 
     const endState = usersReducer(startState, action)
 
     expect(endState["users"].length).toBe(0);
-
-});
-
-test('user should be set', () => {
-
-    const action = setUsers( );
-
-    const endState = usersReducer(startState, action)
-
-    expect(endState.users.length).toBe(1);
 
 });
 
