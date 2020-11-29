@@ -1,44 +1,23 @@
+import { profileReducer, addPostActionCreator } from "./profileReducer";
 
-import {addPostActionCreator, profileReducer, UpdateNewPostActionCreator} from "./profileReducer";
 
-let startState = {
-    postsData: [
-        {id: 1, message: 'Hi!!!', likeCounter: 12},
-        {id: 2, message: "It's my first post!", likeCounter: 10},
-        {id: 3, message: "How a u dudes?", likeCounter: 7}
-    ],
-    newPostText: 'SOME TEXT'
-};
+it('new post should be added and length should be incremented', () => {
 
-beforeEach( () => {
-    startState = {
+    let initialState = {
         postsData: [
             {id: 1, message: 'Hi!!!', likeCounter: 12},
             {id: 2, message: "It's my first post!", likeCounter: 10},
             {id: 3, message: "How a u dudes?", likeCounter: 7}
         ],
-        newPostText: 'SOME TEXT'
-    };
-})
+    }
 
-test('post data should be added', () => {
+    let action = addPostActionCreator('Hi111!!!')
 
-    const action = addPostActionCreator();
+    let newState = profileReducer(initialState,action)
 
-    const endState = profileReducer(startState, action)
-
-    expect(endState["postsData"].length).toBe(4);
+    expect (newState.postsData.length).toBe(4);
+    expect (newState.postsData[3].message).toBe('Hi111!!!');
 
 });
 
-test('new post text should be update', () => {
 
-    const action = UpdateNewPostActionCreator("ananas");
-
-    const endState = profileReducer(startState, action)
-
-    expect(endState["newPostText"]).toBe("ananas");
-    //если убрать endState, то тесть пройдет
-    expect(endState["newPostText"].length).toBe(2);
-
-});
