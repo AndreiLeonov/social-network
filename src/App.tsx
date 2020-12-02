@@ -15,11 +15,6 @@ import {initializeApp} from "./redux/appReducer"
 import {compose} from "redux";
 import {Preloader} from "./components/common/Preloader/Preloader";
 
-// type AppType = {
-//     initializeApp: () => void
-//     initialized: boolean
-// }
-
 class App extends React.Component<any> {
 
     componentDidMount() {

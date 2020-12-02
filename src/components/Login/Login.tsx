@@ -15,9 +15,9 @@ type FormDataType = {
 
 const maxLength20 = maxLengthCreator(20);
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit,error}) => {
     return (
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <Field component={Input} name={"email"} placeholder={"email"} validate={[required, maxLength20]}/>
                 </div>
@@ -28,7 +28,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     <Field component={Input} name={"rememberMe"} type="checkbox"/>
                     запомнить
                 </div>
-                {props.error && <div>{props.error}</div>}
+                {error && <div>{error}</div>}
                 <div>
                     <button>ОТПРАВИТЬ</button>
                 </div>

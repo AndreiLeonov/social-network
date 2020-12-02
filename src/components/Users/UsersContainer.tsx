@@ -29,7 +29,7 @@ export type UsersComponentType = {
     isFetching: boolean
     setIsFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
-    requestUsers: (currentPage: number, pageSize: number)=> void
+    requestUsers: (currentPage: number, pageSize: number) => void
 }
 
 class UsersContainer extends React.Component<UsersComponentType> {
@@ -44,7 +44,7 @@ class UsersContainer extends React.Component<UsersComponentType> {
     render() {
 
         return <>
-            {this.props.isFetching ? <Preloader /> : null}
+            {this.props.isFetching ? <Preloader/> : null}
             <Users
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
@@ -60,17 +60,6 @@ class UsersContainer extends React.Component<UsersComponentType> {
     }
 }
 
-// const mapStateToProps = (state: any) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
-
 const mapStateToProps = (state: any) => {
     return {
         users: getUsers(state),
@@ -83,6 +72,5 @@ const mapStateToProps = (state: any) => {
 }
 
 export default compose<React.ComponentType>(
-    //withAuthRedirect,
     connect(mapStateToProps, {follow, unfollow, setCurrentPage, setIsFollowingProgress, requestUsers})
 )(UsersContainer);
