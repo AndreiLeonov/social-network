@@ -7,9 +7,13 @@ export function Profile(props: any) {
     return (
         <div>
             <ProfileInfo
+                isOwner={props.isOwner}
                 profile={props.profile}
                 status={props.status}
-                updateStatus = {props.updateUserStatus}/>
+                updateStatus = {props.updateUserStatus}
+                addProfilePhoto = {props.addProfilePhoto}
+
+            />
             <MyPostsContainer />
         </div>
     );

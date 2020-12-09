@@ -1,8 +1,15 @@
 import {profileAPI} from "../api/api";
+export const SetUserStatus = (status: string): SetUserStatusType => {
+    return {
+        type: SET_USER_STATUS,
+        status: status
+    }
+}
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
+const SET_PROFILE_PHOTO = 'SET_PROFILE_PHOTO';
 
 export type PostsDataType = {
     id: number
@@ -12,6 +19,7 @@ export type PostsDataType = {
 
 export type ProfilePageType = {
     postsData: Array<PostsDataType>
+    profile: any
 }
 
 export type AddPostActionType = {
@@ -34,10 +42,16 @@ export type SetUserStatusType = {
     status: string
 }
 
+export type SetProfilePhotoType = {
+    type: 'SET_PROFILE_PHOTO'
+    photos: any
+}
+
 export type ActionsType =
     | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof SetUserProfile>
     | ReturnType<typeof SetUserStatus>
+    | ReturnType<typeof SetProfilePhoto>
 
 let initialState = {
     postsData: [
@@ -76,6 +90,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 status: action.status
             };
         }
+        case SET_PROFILE_PHOTO: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            };
+        }
         default:
             return state;
     }
@@ -95,10 +115,10 @@ export const SetUserProfile = (profile: any): SetUserProfileType => {
     }
 }
 
-export const SetUserStatus = (status: string): SetUserStatusType => {
+export const SetProfilePhoto = (photos: any): SetProfilePhotoType => {
     return {
-        type: SET_USER_STATUS,
-        status: status
+        type: SET_PROFILE_PHOTO,
+        photos
     }
 }
 
@@ -118,5 +138,12 @@ export const updateUserStatus = (status: string) => async (dispatch: any) => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(SetUserStatus(status));
+    }
+}
+
+export const addProfilePhoto = (file: any) => async (dispatch: any) => {
+    let response = await profileAPI.addPhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(SetProfilePhoto(response.data.data.photos));
     }
 }
