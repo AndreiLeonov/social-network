@@ -1,42 +1,22 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
-
 }
 
 .dialogsItems {
     padding: 10px;
+    color: white;
 }
 
-.dialogsItems .activeLink {
-    color: blueviolet;
-    font-weight: 800;
-}
-
-.dialog {
-    padding: 15px;
-    /*background-color: blueviolet;*/
-    /*border: 1px solid black;*/
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-}
-
-.dialog img {
-    width: 30px;
-    height: 30px;
-    border-radius: 25px;
-    border: 1px solid black;
+.dialogsItems .active {
+    color: gold;
 }
 
 .messages {
     padding: 10px;
 }
 
-.message {
-    padding: 10px;
-}
-
-.navlink {
-    padding: 5px;
+.messages .message {
+    color: white;
 }
 

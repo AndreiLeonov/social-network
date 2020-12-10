@@ -1,11 +1,7 @@
-.PostsBlock {
+.postsBlock {
     padding: 10px;
 }
 
-.ButtonStyle {
-    margin: 1px;
-}
-
-.PostsStyle {
+.posts {
     margin-top: 10px;
 }

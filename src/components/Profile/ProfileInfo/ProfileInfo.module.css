@@ -2,10 +2,10 @@
     padding: 10px;
 }
 
-.MainPhoto {
-    max-width: 300px;
+.mainPhoto {
+    max-width: 200px;
 }
 
-.contacts {
-    padding-left: 15px;
+.contact {
+    padding-left: 10px;
 }
