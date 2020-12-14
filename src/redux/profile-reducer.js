@@ -54,7 +54,6 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
@@ -79,8 +78,8 @@ export const updateStatus = (status) => async (dispatch) => {
             dispatch(setStatus(status));
         }
     } catch (error) {
-        
-        
+        // сделать красивую обработку ошибки
+        alert(error.message);
     }
     
 }
