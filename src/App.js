@@ -47,12 +47,12 @@ class App extends Component {
                                    render={withSuspense(ProfileContainer)} />
 
                             <Route exact path='/users'
-                                   render={() => <UsersContainer/>}/>
+                                   render={() => <UsersContainer pageTitle={"test"}/>}/>
 
                             <Route exact path='/login'
                                    render={() => <LoginPage/>}/>
 
-                            <Route path='*'
+                            <Route exact path='*' //need to fix
                                    render={() => <div>404 NOT FOUND</div> }/>
                         </div>
                     </div>

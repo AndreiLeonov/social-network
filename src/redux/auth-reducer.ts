@@ -30,7 +30,6 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
             return {
                 ...state,
                 ...action.payload,
-                userId: "123"
             }
         default:
             return state;

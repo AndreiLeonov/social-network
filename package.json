@@ -4,10 +4,12 @@
   "private": true,
   "homepage": "https://it-kamasutra.github.io/react-way-of-samurai",
   "dependencies": {
+    "@types/classnames": "^2.2.11",
     "@types/jest": "^26.0.18",
     "@types/node": "^14.14.12",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-redux": "^7.1.12",
     "@types/redux-form": "^8.3.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
