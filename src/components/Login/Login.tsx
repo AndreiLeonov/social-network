@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
@@ -12,15 +12,24 @@ type LoginFormOwnProps = {
     captchaUrl: string | null
 }
 
+export type LoginFormValueType = {
+    password: string
+    email: string
+    rememberMe: boolean
+    captcha: string | null
+}
+
+type LoginFormKeysType = Extract<keyof LoginFormValueType, string >
+
 const LoginForm: React.FC<InjectedFormProps<LoginFormValueType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
-            {createField("Email", "email", [required], Input)}
-            {createField("Password", "password", [required], Input, {type: "password"})}
-            {createField(null, "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
+            {createField<LoginFormKeysType>("Email", "email", [required], Input)}
+            {createField<LoginFormKeysType>("Password", "password", [required], Input, {type: "password"})}
+            {createField<LoginFormKeysType>(undefined, "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
 
             { captchaUrl && <img src={captchaUrl} />}
-            { captchaUrl &&  createField("Symbols from image", "captcha", [required], Input, {}) }
+            { captchaUrl &&  createField<LoginFormKeysType>("Symbols from image", "captcha", [required], Input, {}) }
 
 
             {error && <div className={style.formSummaryError}>
@@ -43,13 +52,6 @@ type MapStatePropsType = {
 
 type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void
-}
-
-type LoginFormValueType = {
-    password: string
-    email: string
-    rememberMe: boolean
-    captcha: string | null
 }
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType>= (props) => {
