@@ -2,10 +2,9 @@ import {UserType} from "../types/types";
 import {updateObjectInArray} from "../utils/object-helpers";
 import {AppStateType, BaseThunkType, InferActionsType} from "./redux-store";
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
 import {usersAPI} from "../api/users-api";
 
-let initialState = {
+const initialState = {
     users: [] as Array<UserType>,
     pageSize: 10,
     totalUsersCount: 0,
@@ -81,7 +80,6 @@ export const requestUsers = (page: number, pageSize: number) => {
         dispatch(actions.setTotalUsersCount(data.totalCount));
     }
 }
-
 const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: (userId: number) => ActionsType) => {
     dispatch(actions.toggleFollowingProgress(true, userId));
     let response = await apiMethod(userId);
@@ -91,13 +89,11 @@ const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMe
     }
     dispatch(actions.toggleFollowingProgress(false, userId));
 }
-
 export const follow = (userId: number): ThunkType => {
     return async (dispatch: DispatchType) => {
         _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess);
     }
 }
-
 export const unfollow = (userId: number): ThunkType => {
     return async (dispatch: DispatchType) => {
         _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.unfollowSuccess);

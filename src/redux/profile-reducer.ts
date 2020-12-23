@@ -1,6 +1,5 @@
 import {FormAction, stopSubmit} from "redux-form";
 import {PhotosType, PostsType, ProfileType} from "../types/types";
-import {Dispatch} from "redux";
 import {BaseThunkType, InferActionsType} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
 
@@ -95,18 +94,17 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch,
 
 //actions
 export const actions = {
-    addPostActionCreator: (newPostText: string) => ({type: 'PROFILE_REDUCER/ADD_POST', newPostText}as const),
-    setUserProfile: (profile: ProfileType) => ({type: 'PROFILE_REDUCER/SET_USER_PROFILE', profile}as const),
-    setStatus: (status: string) => ({type: 'PROFILE_REDUCER/SET_STATUS', status}as const),
-    deletePost: (postId: number) => ({type: 'PROFILE_REDUCER/DELETE_POST', postId}as const),
-    savePhotoSuccess: (photos: PhotosType) => ({type: 'PROFILE_REDUCER/SAVE_PHOTO_SUCCESS', photos}as const),
+    addPostActionCreator: (newPostText: string) => ({type: 'PROFILE_REDUCER/ADD_POST', newPostText} as const),
+    setUserProfile: (profile: ProfileType) => ({type: 'PROFILE_REDUCER/SET_USER_PROFILE', profile} as const),
+    setStatus: (status: string) => ({type: 'PROFILE_REDUCER/SET_STATUS', status} as const),
+    deletePost: (postId: number) => ({type: 'PROFILE_REDUCER/DELETE_POST', postId} as const),
+    savePhotoSuccess: (photos: PhotosType) => ({type: 'PROFILE_REDUCER/SAVE_PHOTO_SUCCESS', photos} as const),
 }
 
 //types
 type InitialStateType = typeof initialState;
 type ActionsType = InferActionsType<typeof actions>
 type ThunkType = BaseThunkType<ActionsType | FormAction>
-type DispatchType = Dispatch<ActionsType>
 
 //export
 export default profileReducer;
