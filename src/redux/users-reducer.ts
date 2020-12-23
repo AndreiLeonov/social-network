@@ -1,6 +1,6 @@
 import {UserType} from "../types/types";
 import {updateObjectInArray} from "../utils/object-helpers";
-import {AppStateType, InferActionsType} from "./redux-store";
+import {AppStateType, BaseThunkType, InferActionsType} from "./redux-store";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {usersAPI} from "../api/users-api";
@@ -92,13 +92,13 @@ const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMe
     dispatch(actions.toggleFollowingProgress(false, userId));
 }
 
-export const follow = (userId: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => {
+export const follow = (userId: number): ThunkType => {
     return async (dispatch: DispatchType) => {
         _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess);
     }
 }
 
-export const unfollow = (userId: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => {
+export const unfollow = (userId: number): ThunkType => {
     return async (dispatch: DispatchType) => {
         _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.unfollowSuccess);
     }
@@ -109,5 +109,7 @@ type InitialStateType = typeof initialState;
 type ActionsType = InferActionsType<typeof actions>
 type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsType>
+type ThunkType = BaseThunkType<ActionsType>
+
 
 export default usersReducer;
