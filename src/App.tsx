@@ -9,14 +9,17 @@ import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/redux-store";
+import store, { AppStateType } from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
-class App extends Component {
-    catchAllUnhandledErrors = (reason, promise) => {
+const SuspendedDialogs = withSuspense(DialogsContainer);
+const SuspendedProfile = withSuspense(ProfileContainer);
+
+class App extends Component<MapStatePropsType & MapDispatchPropsType> {
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
         alert("Some error");
     }
     componentDidMount() {
@@ -41,10 +44,10 @@ class App extends Component {
                                    render={ () => <Redirect to={"/profile"}/> } />
 
                             <Route exact path='/dialogs'
-                                   render={withSuspense(DialogsContainer)}/>
+                                   render={() => <SuspendedDialogs/> }/>
 
                             <Route exact path='/profile/:userId?'
-                                   render={withSuspense(ProfileContainer)} />
+                                   render={() => <SuspendedProfile/>} />
 
                             <Route exact path='/users'
                                    render={() => <UsersContainer pageTitle={"test"}/>}/>
@@ -60,15 +63,15 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-let AppContainer = compose(
+let AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
 
-const SamuraiJSApp = (props) => {
+const SamuraiJSApp:React.FC = () => {
    return <BrowserRouter >
         <Provider store={store}>
             <AppContainer />
@@ -76,4 +79,9 @@ const SamuraiJSApp = (props) => {
     </BrowserRouter>
 }
 
+//types
+type MapStatePropsType = ReturnType<typeof mapStateToProps> 
+type MapDispatchPropsType = {
+    initializeApp: () => void
+}
 export default SamuraiJSApp;
