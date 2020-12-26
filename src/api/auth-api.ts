@@ -24,4 +24,3 @@ type MeResponseDataType = {
 type LoginResponseDataType = {
     userId: number
 }
-

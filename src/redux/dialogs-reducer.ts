@@ -33,11 +33,11 @@ const dialogsReducer = (state = initialState, action: ActionsType): InitialState
 
 //actions
 export const actions = {
-    sendMessageCreator: (newMessageBody: string) => ({type: 'DIALOGS_REDUCER/SEND_MESSAGE', newMessageBody} as const)
+    sendMessage: (newMessageBody: string) => ({type: 'DIALOGS_REDUCER/SEND_MESSAGE', newMessageBody} as const)
 }
 
 //types
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsType<typeof actions>
 type DialogsType = {
     id: number
