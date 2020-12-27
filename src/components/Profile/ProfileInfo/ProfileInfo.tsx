@@ -4,8 +4,18 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.png";
 import ProfileDataForm from "./ProfileDataForm";
+import { ProfileType } from '../../../types/types';
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+type PropsType = {
+    profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean 
+    savePhoto: (file: File) => void 
+    saveProfile: (profile: ProfileType) => Promise<any> 
+}
+
+const ProfileInfo: React.FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
 
     let [editMode, setEditMode] = useState(false);
 
@@ -13,13 +23,14 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e) => {
-        if (e.target.files.length) {
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
             savePhoto(e.target.files[0]);
         }
     }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData: ProfileType) => {
+        
         saveProfile(formData).then(
             () => {
                 setEditMode(false);
@@ -43,7 +54,13 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     )
 }
 
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
+type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
+}
+
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
     return <div>
         {isOwner && <div><button onClick={goToEditMode}>Отредактировать информацию в профиле</button></div>}
         <div>

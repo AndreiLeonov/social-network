@@ -40,3 +40,5 @@ export function createField<KeysType extends string>(placeholder: string | undef
         /> {text}
     </div>
 }
+
+export type GetStringKeys<T> = Extract<keyof T, string >
