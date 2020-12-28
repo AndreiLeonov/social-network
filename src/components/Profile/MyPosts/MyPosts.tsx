@@ -7,13 +7,11 @@ import {Textarea} from "../../common/FormsControls/FormsControls";
 import AddPostForm, { AddPostFormValuesType } from './AddPostForm/AddPostForm';
 import { PostsType } from '../../../types/types';
 
-const MyPosts: React.FC<PropsType> = props => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     let postsElements =
         [...props.posts]
             .reverse()
             .map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>);
-
-    //let newPostElement = React.createRef();
 
     let onAddPost = (values: AddPostFormValuesType) => {
         props.addPost(values.newPostText);
@@ -33,8 +31,11 @@ const MyPosts: React.FC<PropsType> = props => {
 const MyPostsMemo = React.memo(MyPosts);
 
 //types
-type PropsType = {
+export type MapPropsType = {
     posts: Array<PostsType>
+}
+
+export type DispatchPropsType = {
     addPost: (newPostText: string) => void
 }
 
