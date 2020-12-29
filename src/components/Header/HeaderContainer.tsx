@@ -6,7 +6,6 @@ import { AppStateType } from '../../redux/redux-store';
 
 class HeaderContainer extends React.Component<MapPropsType & DispatchPropsType> {
 
-
     render() {
         return <Header {...this.props} />
     }

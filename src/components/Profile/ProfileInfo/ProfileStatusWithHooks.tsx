@@ -1,11 +1,6 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 
-type PropsType = {
-    status: string
-    updateStatus: (status: string) => void
-}
-
 const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     let [editMode, setEditMode] = React.useState(false);
     let [status, setStatus] = React.useState(props.status);
@@ -46,3 +41,9 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
 
 
 export default ProfileStatusWithHooks;
+
+//types
+type PropsType = {
+    status: string
+    updateStatus: (status: string) => void
+}

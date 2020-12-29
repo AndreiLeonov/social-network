@@ -2,14 +2,6 @@ import React, {useState} from 'react';
 import styles from "./Paginator.module.css";
 import cn from "classnames";
 
-type PropsType = {
-    totalItemsCount: number
-    pageSize: number
-    currentPage:number
-    onPageChanged: (pageNumber: number) => void
-    portionSize?: number
-}
-
 let Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
@@ -23,7 +15,6 @@ let Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage, o
     let [portionNumber, setPortionNumber] = useState<number>(1);
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
-
 
     return <div className={styles.paginator}>
         { portionNumber > 1 &&
@@ -48,3 +39,12 @@ let Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage, o
 }
 
 export default Paginator;
+
+//types
+type PropsType = {
+    totalItemsCount: number
+    pageSize: number
+    currentPage:number
+    onPageChanged: (pageNumber: number) => void
+    portionSize?: number
+}

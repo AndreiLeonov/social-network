@@ -7,20 +7,6 @@ import {compose} from "redux";
 import { AppStateType } from '../../redux/redux-store';
 import { ProfileType } from '../../types/types';
 
-type MapPropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType = {
-    getUserProfile: (userId: number) => void 
-    getStatus: (userId: number) => void
-    updateStatus: (status: string) => void 
-    savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileType) => Promise<any>
-}
-type ParamsType = {
-    userId: string
-}
-
-type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<ParamsType>
-
 class ProfileContainer extends React.Component<PropsType> {
 
     refreshProfile() {
@@ -73,3 +59,18 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter
 )(ProfileContainer);
+
+//types 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    getUserProfile: (userId: number) => void 
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void 
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
+}
+type ParamsType = {
+    userId: string
+}
+
+type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<ParamsType>

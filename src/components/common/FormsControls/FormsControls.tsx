@@ -3,10 +3,6 @@ import styles from "./FormsControls.module.css";
 import {FieldValidatorType} from "../../../utils/validators/validators";
 import {Field, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
 
-type FormControlParamsType = {
-    meta: WrappedFieldMetaProps
-}
-
 const FormControl: React.FC<FormControlParamsType> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error;
     return (
@@ -39,6 +35,11 @@ export function createField<KeysType extends string>(placeholder: string | undef
                {...props}
         /> {text}
     </div>
+}
+
+//types
+type FormControlParamsType = {
+    meta: WrappedFieldMetaProps
 }
 
 export type GetStringKeys<T> = Extract<keyof T, string >

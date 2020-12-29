@@ -6,17 +6,6 @@ import {Redirect} from "react-router-dom";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 import { InitialStateType } from '../../redux/dialogs-reducer';
 
-type PropsType = {
-    dialogsPage: InitialStateType
-    sendMessage: (messageText: string) => void
-}
-
-export type DialogFormType = {
-    newMessageBody: string
-}
-
-
-
 const Dialogs: React.FC<PropsType> = (props) => {
 
     let state = props.dialogsPage;
@@ -43,3 +32,13 @@ const Dialogs: React.FC<PropsType> = (props) => {
 }
 
 export default Dialogs;
+
+//types
+type PropsType = {
+    dialogsPage: InitialStateType
+    sendMessage: (messageText: string) => void
+}
+
+export type DialogFormType = {
+    newMessageBody: string
+}
