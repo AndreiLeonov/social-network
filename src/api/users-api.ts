@@ -2,8 +2,8 @@ import {GetItemsType, instance, APIResponseType} from "./api";
 import {AxiosPromise} from "axios";
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage = 1, pageSize = 10, term = "") {
+        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
             .then(res => res.data)
     },
     follow(userId: number) {

@@ -2,7 +2,7 @@ import React from 'react';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import { UserType } from "../../types/types";
-import { Field, Form, Formik } from 'formik';
+import { UsersSearchForm } from './UsersSearchForm';
 
 type PropsType = {
     currentPage: number
@@ -35,42 +35,4 @@ let Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize, onPa
     </div>
 }
 
-const usersSearchFormValidate = (values: any) => {
-    const errors = {};
-    return errors;
-}
-
-type FormType = {
-    term: string
-}
-
-const UsersSearchForm = () => {
-
-    const submit = (values: FormType, { setSubmitting }: {setSubmitting: (isSubmitting: boolean) => void} ) => {
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
-    }
-
-    return (
-        <div>
-            <Formik
-                initialValues={{ term: ''}}
-                validate={usersSearchFormValidate}
-                onSubmit={submit}
-            >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <Field type="text" name="term" />
-                        <button type="submit" disabled={isSubmitting}>
-                            Find
-           </button>
-                    </Form>
-                )}
-            </Formik>
-
-        </div>
-    );
-}
 export default Users;
