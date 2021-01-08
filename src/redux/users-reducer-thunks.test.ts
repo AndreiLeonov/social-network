@@ -1,4 +1,4 @@
-import { actions, follow, unfollow } from "./users-reducer";
+import { actions, followTC, unfollowTC } from "./users-reducer";
 import {usersAPI} from "../api/users-api";
 import { APIResponseType, ResultCodeEnum } from "../api/api";
 
@@ -26,7 +26,7 @@ beforeEach ( () => {
 })
 
 test ("follow thunk should be success", async () => {
-    const thunk = follow(1);
+    const thunk = followTC(1);
     
     await thunk(dispatchMock, getStateMock, {});
 
@@ -37,7 +37,7 @@ test ("follow thunk should be success", async () => {
 })
 
 test ("unfollow thunk should be success", async () => {
-    const thunk = unfollow(1);
+    const thunk = unfollowTC(1);
 
     await thunk(dispatchMock, getStateMock, {});
 

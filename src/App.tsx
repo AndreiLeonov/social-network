@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
-import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -11,6 +10,7 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store, { AppStateType } from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
+import { UsersPage } from './components/Users/UsersContainer';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -50,7 +50,7 @@ class App extends Component<MapStatePropsType & MapDispatchPropsType> {
                                    render={() => <SuspendedProfile/>} />
 
                             <Route exact path='/users'
-                                   render={() => <UsersContainer pageTitle={"test"}/>}/>
+                                   render={() => <UsersPage pageTitle={"test"}/>}/>
 
                             <Route exact path='/login'
                                    render={() => <LoginPage/>}/>

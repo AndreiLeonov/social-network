@@ -1,52 +1,56 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FilterType, followTC, requestUsers, unfollowTC } from '../../redux/users-reducer';
+import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from '../../redux/users-selectors';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
-import { UserType } from "../../types/types";
 import { UsersSearchForm } from './UsersSearchForm';
-import { FilterType, requestUsers } from '../../redux/users-reducer';
-import { getCurrentPage, getPageSize, getTotalUsersCount, getUsersFilter } from '../../redux/users-selectors';
-import { useDispatch, useSelector } from 'react-redux';
 
-type PropsType = {
-    users: Array<UserType>
-    followingInProgress: Array<number>
-    unfollow: (userId: number) => void
-    follow: (userId: number) => void
-    onFilterChanged: (filter: FilterType) => void
-}
+type PropsType = { }
 
-let Users: React.FC<PropsType> = ({users, ...props }) => {
+export const Users: React.FC<PropsType> = (props) => {
+
+    React.useEffect(() => {
+        dispatch(requestUsers(currentPage, pageSize, filter));
+    }, [])
+
+    const users = useSelector(getUsers);
     const totalUsersCount = useSelector(getTotalUsersCount);
     const currentPage = useSelector(getCurrentPage);
     const pageSize = useSelector(getPageSize);
     const filter = useSelector(getUsersFilter);
+    const followingInProgress = useSelector(getFollowingInProgress);
 
     const dispatch = useDispatch();
 
-    const getUsers = () => {}
-
     const onPageChanged = (pageNumber: number) => {
         dispatch(requestUsers(pageNumber, pageSize, filter));
-
+    }
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(requestUsers(1, pageSize, filter));
+    }
+    const follow = (userId: number) => {
+        dispatch(followTC(userId))
+    }
+    const unfollow = (userId: number) => {
+        dispatch(unfollowTC(userId))
     }
 
     return <div>
-        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
+        <UsersSearchForm onFilterChanged={onFilterChanged} />
 
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
             totalItemsCount={totalUsersCount} pageSize={pageSize} />
         <div>
             {
                 users.map(u => <User user={u}
-                    followingInProgress={props.followingInProgress}
+                    followingInProgress={followingInProgress}
                     key={u.id}
-                    unfollow={props.unfollow}
-                    follow={props.follow}
+                    unfollow={unfollow}
+                    follow={follow}
                 />
                 )
             }
         </div>
     </div>
 }
-
-export default Users;
