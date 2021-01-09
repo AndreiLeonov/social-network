@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { FilterType, followTC, requestUsers, unfollowTC } from '../../redux/users-reducer';
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from '../../redux/users-selectors';
 import Paginator from "../common/Paginator/Paginator";
@@ -22,6 +23,14 @@ export const Users: React.FC<PropsType> = (props) => {
     const followingInProgress = useSelector(getFollowingInProgress);
 
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    React.useEffect(() => {
+        history.push({
+            pathname:"/users",
+            search:`?term=${filter.term}&friend=${filter.friend}`
+        })
+    }, [filter])
 
     const onPageChanged = (pageNumber: number) => {
         dispatch(requestUsers(pageNumber, pageSize, filter));

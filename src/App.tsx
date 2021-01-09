@@ -9,7 +9,7 @@ import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store, { AppStateType } from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
-import { UsersPage } from './components/Users/UsersContainer';
+import { UsersPage } from './components/Users/UsersPage';
 import { LoginPage} from './components/Login/Login';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));

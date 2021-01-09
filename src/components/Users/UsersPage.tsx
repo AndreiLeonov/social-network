@@ -9,7 +9,7 @@ type UsersPagePropsType = {
 }
 
 export const UsersPage: React.FC<UsersPagePropsType> = (props) => {
-
+    
     const isFetching = useSelector(getIsFetching)
 
     return <>

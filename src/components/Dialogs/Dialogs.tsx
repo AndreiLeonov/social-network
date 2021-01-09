@@ -24,7 +24,6 @@ const Dialogs: React.FC<PropsType> = (props) => {
             </div>
             <div className={s.messages}>
                 <div>{ messagesElements }</div>
-
             </div>
             <AddMessageForm onSubmit={addNewMessage} />
         </div>
