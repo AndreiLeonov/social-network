@@ -1,4 +1,13 @@
-import React, { ChangeEvent } from 'react';
+import React, {ChangeEvent} from 'react';
+
+type PropsType = {
+    status: string
+    updateStatus: (newStatus: string) => void
+}
+type StateType = {
+    editMode: boolean
+    status: string
+}
 
 class ProfileStatus extends React.Component<PropsType, StateType> {
     state = {
@@ -56,15 +65,3 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
 }
 
 export default ProfileStatus;
-
-//types
-type PropsType = {
-    status: string
-    updateStatus: (newStatus: string) => void
-
-}
-
-type StateType = {
-    editMode: boolean
-    status: string
-}

@@ -4,8 +4,16 @@ import Post from './Post/Post';
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
-import AddPostForm, { AddPostFormValuesType } from './AddPostForm/AddPostForm';
-import { PostsType } from '../../../types/types';
+import AddPostForm, {AddPostFormValuesType} from './AddPostForm/AddPostForm';
+import {PostType} from '../../../types/types';
+
+
+export type MapPropsType = {
+    posts: Array<PostType>
+}
+export type DispatchPropsType = {
+    addPost: (newPostText: string) => void
+}
 
 const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     let postsElements =
@@ -28,15 +36,6 @@ const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     )
 }
 
-const MyPostsMemo = React.memo(MyPosts);
+const MyPostsMemorized = React.memo(MyPosts);
 
-//types
-export type MapPropsType = {
-    posts: Array<PostsType>
-}
-
-export type DispatchPropsType = {
-    addPost: (newPostText: string) => void
-}
-
-export default MyPostsMemo;
+export default MyPostsMemorized;

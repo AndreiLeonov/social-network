@@ -2,41 +2,66 @@ import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withRouter, RouteComponentProps} from "react-router-dom";
 import {compose} from "redux";
-import { AppStateType } from '../../redux/redux-store';
-import { ProfileType } from '../../types/types';
+import {AppStateType} from '../../redux/redux-store';
+import {ProfileType} from '../../types/types';
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    getUserProfile: (userId: number) => void
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
+}
+
+type PathParamsType = {
+    userId: string
+}
+
+type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<PathParamsType>;
 
 class ProfileContainer extends React.Component<PropsType> {
+    constructor(props: PropsType) {
+        super(props);
+    }
 
     refreshProfile() {
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
             if (!userId) {
+                // todo: may be replace push with Redirect??
                 this.props.history.push("/login");
             }
         }
-        this.props.getUserProfile(userId as number);
-        this.props.getStatus(userId as number);
+
+        if (!userId) {
+            console.error("ID should exists in URI params or in state ('authorizedUserId')");
+        } else {
+            this.props.getUserProfile(userId)
+            this.props.getStatus(userId)
+        }
     }
 
     componentDidMount() {
-
         this.refreshProfile();
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
-        if (this.props.match.params.userId != prevProps.match.params.userId ) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
             this.refreshProfile();
         }
     }
 
+    componentWillUnmount(): void {
+    }
+
     render() {
-       // console.log("RENDER PROFILE");
         return (
             <Profile {...this.props}
-                    isOwner={!this.props.match.params.userId}
+                     isOwner={!this.props.match.params.userId}
                      profile={this.props.profile}
                      status={this.props.status}
                      updateStatus={this.props.updateStatus}
@@ -60,17 +85,6 @@ export default compose<React.ComponentType>(
     withRouter
 )(ProfileContainer);
 
-//types 
-type MapPropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType = {
-    getUserProfile: (userId: number) => void 
-    getStatus: (userId: number) => void
-    updateStatus: (status: string) => void 
-    savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileType) => Promise<any>
-}
-type ParamsType = {
-    userId: string
-}
 
-type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<ParamsType>
+
+

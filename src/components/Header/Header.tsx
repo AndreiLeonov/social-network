@@ -2,6 +2,14 @@ import React from 'react';
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
 
+export type MapPropsType = {
+    isAuth: boolean
+    login: string | null
+}
+export type DispatchPropsType = {
+    logout: () => void
+}
+
 const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
     return <header className={s.header}>
         <img src='https://www.freelogodesign.org/Content/img/logo-ex-7.png' />
@@ -15,13 +23,3 @@ const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
 }
 
 export default Header;
-
-//types
-export type MapPropsType = {
-    login: string | null
-    isAuth: boolean
-}
-
-export type DispatchPropsType = {
-    logout: () => void
-}
