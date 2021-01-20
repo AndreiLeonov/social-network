@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
-
+import 'antd/dist/antd.css';
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {LoginPage} from "./components/Login/LoginPage";
 import {connect, Provider} from "react-redux";
@@ -12,6 +12,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store, {AppStateType} from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
 import { UsersPage } from './components/Users/UsersContainer';
+import { Button } from 'antd';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -64,7 +65,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                render={() => <LoginPage/>}/>
 
                         <Route path='*'
-                               render={() => <div>404 NOT FOUND</div>}/>
+                               render={() => <div>404 NOT FOUND <Button>1</Button> </div>}/>
                     </Switch>
 
                 </div>
