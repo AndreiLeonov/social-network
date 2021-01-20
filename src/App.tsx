@@ -12,7 +12,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store, { AppStateType } from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
 import { UsersPage } from './components/Users/UsersContainer';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Avatar, Row, Col } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
@@ -52,11 +52,13 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             <Layout>
                 <Header className="header">
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                        <Menu.Item key="1">nav 1</Menu.Item>
-                        <Menu.Item key="2">nav 2</Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
-                    </Menu>
+                    <Row>
+                        <Col span={23}> <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                            <Menu.Item key="1"><Link to="/users">Users</Link></Menu.Item>
+                        </Menu>
+                        </Col>
+                        <Col span={1}><Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} /></Col>
+                    </Row>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
@@ -91,25 +93,25 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                             </Menu>
                         </Sider>
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                        <Switch>
-                        <Route exact path='/'
-                               render={() => <Redirect to={"/profile"}/>}/>
+                            <Switch>
+                                <Route exact path='/'
+                                    render={() => <Redirect to={"/profile"} />} />
 
-                        <Route path='/dialogs'
-                               render={() => <SuspendedDialogs /> }/>
+                                <Route path='/dialogs'
+                                    render={() => <SuspendedDialogs />} />
 
-                        <Route path='/profile/:userId?'
-                               render={() => <SuspendedProfile /> }/>
+                                <Route path='/profile/:userId?'
+                                    render={() => <SuspendedProfile />} />
 
-                        <Route path='/users'
-                               render={() => <UsersPage pageTitle={"Самураи"}/>}/>
+                                <Route path='/users'
+                                    render={() => <UsersPage pageTitle={"Самураи"} />} />
 
-                        <Route path='/login'
-                               render={() => <LoginPage/>}/>
+                                <Route path='/login'
+                                    render={() => <LoginPage />} />
 
-                        <Route path='*'
-                               render={() => <div>404 NOT FOUND</div>}/>
-                    </Switch>
+                                <Route path='*'
+                                    render={() => <div>404 NOT FOUND</div>} />
+                            </Switch>
                         </Content>
                     </Layout>
                 </Content>
@@ -121,25 +123,25 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             //     <HeaderContainer/>
             //     <Navbar/>
             //     <div className='app-wrapper-content'>
-                    // <Switch>
-                    //     <Route exact path='/'
-                    //            render={() => <Redirect to={"/profile"}/>}/>
+            // <Switch>
+            //     <Route exact path='/'
+            //            render={() => <Redirect to={"/profile"}/>}/>
 
-                    //     <Route path='/dialogs'
-                    //            render={() => <SuspendedDialogs /> }/>
+            //     <Route path='/dialogs'
+            //            render={() => <SuspendedDialogs /> }/>
 
-                    //     <Route path='/profile/:userId?'
-                    //            render={() => <SuspendedProfile /> }/>
+            //     <Route path='/profile/:userId?'
+            //            render={() => <SuspendedProfile /> }/>
 
-                    //     <Route path='/users'
-                    //            render={() => <UsersPage pageTitle={"Самураи"}/>}/>
+            //     <Route path='/users'
+            //            render={() => <UsersPage pageTitle={"Самураи"}/>}/>
 
-                    //     <Route path='/login'
-                    //            render={() => <LoginPage/>}/>
+            //     <Route path='/login'
+            //            render={() => <LoginPage/>}/>
 
-                    //     <Route path='*'
-                    //            render={() => <div>404 NOT FOUND</div>}/>
-                    // </Switch>
+            //     <Route path='*'
+            //            render={() => <div>404 NOT FOUND</div>}/>
+            // </Switch>
 
             //     </div>
             // </div>
