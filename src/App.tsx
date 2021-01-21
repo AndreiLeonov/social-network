@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Link, NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import 'antd/dist/antd.css';
-import HeaderContainer from "./components/Header/HeaderContainer";
 import { LoginPage } from "./components/Login/LoginPage";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
@@ -12,11 +10,12 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store, { AppStateType } from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
 import { UsersPage } from './components/Users/UsersContainer';
-import { Layout, Menu, Breadcrumb, Avatar, Row, Col } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Header } from './components/Header/Header';
 
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -50,16 +49,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
         return (
 
             <Layout>
-                <Header className="header">
-                    <div className="logo" />
-                    <Row>
-                        <Col span={23}> <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                            <Menu.Item key="1"><Link to="/users">Users</Link></Menu.Item>
-                        </Menu>
-                        </Col>
-                        <Col span={1}><Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} /></Col>
-                    </Row>
-                </Header>
+                <Header />
+
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -115,9 +106,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Footer style={{ textAlign: 'center' }}>Social Network project 2021</Footer>
             </Layout>
-
 
             // <div className='app-wrapper'>
             //     <HeaderContainer/>
