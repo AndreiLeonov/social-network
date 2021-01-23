@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Link, NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { BrowserRouter, Link, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import 'antd/dist/antd.css';
 import { LoginPage } from "./components/Login/LoginPage";
 import { connect, Provider } from "react-redux";
@@ -27,7 +27,6 @@ type DispatchPropsType = {
 
 const SuspendedDialogs = withSuspense(DialogsContainer);
 const SuspendedProfile = withSuspense(ProfileContainer);
-
 
 class App extends Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -109,32 +108,6 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 <Footer style={{ textAlign: 'center' }}>Social Network project 2021</Footer>
             </Layout>
 
-            // <div className='app-wrapper'>
-            //     <HeaderContainer/>
-            //     <Navbar/>
-            //     <div className='app-wrapper-content'>
-            // <Switch>
-            //     <Route exact path='/'
-            //            render={() => <Redirect to={"/profile"}/>}/>
-
-            //     <Route path='/dialogs'
-            //            render={() => <SuspendedDialogs /> }/>
-
-            //     <Route path='/profile/:userId?'
-            //            render={() => <SuspendedProfile /> }/>
-
-            //     <Route path='/users'
-            //            render={() => <UsersPage pageTitle={"Самураи"}/>}/>
-
-            //     <Route path='/login'
-            //            render={() => <LoginPage/>}/>
-
-            //     <Route path='*'
-            //            render={() => <div>404 NOT FOUND</div>}/>
-            // </Switch>
-
-            //     </div>
-            // </div>
         )
     }
 }
