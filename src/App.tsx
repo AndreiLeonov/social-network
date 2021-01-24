@@ -28,6 +28,7 @@ type DispatchPropsType = {
 
 const SuspendedDialogs = withSuspense(DialogsContainer);
 const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedChatPage = withSuspense(ChatPage);
 
 class App extends Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -75,7 +76,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                     <Menu.Item key="7">option7</Menu.Item>
                                     <Menu.Item key="8">option8</Menu.Item>
                                 </SubMenu>
-                                <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
+                                <SubMenu key="sub3" icon={<NotificationOutlined />} title="Chat for users">
                                     <Menu.Item key="9"><Link to="/chat">Chat</Link></Menu.Item>
                                     <Menu.Item key="10">option10</Menu.Item>
                                     <Menu.Item key="11">option11</Menu.Item>
@@ -101,7 +102,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                     render={() => <LoginPage />} />
 
                                 <Route path='/chat'
-                                    render={() => <ChatPage />} />
+                                    render={() => <SuspendedChatPage />} />
 
                                 <Route path='*'
                                     render={() => <div>404 NOT FOUND</div>} />
