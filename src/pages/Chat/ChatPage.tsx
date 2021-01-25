@@ -52,10 +52,22 @@ export const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
 }
 
 export const AddMessageForm: React.FC = () => {
+
+    const [message, setMessage] = React.useState("");
+
+    const sendMessage = () => {
+        if (!message) {
+            return;
+        } else {
+            ws.send(message);
+            setMessage("");
+        }
+    }
+
     return (
         <div>
-            <div><textarea></textarea></div>
-            <div><button>send</button></div>
+            <div><textarea onChange={ (e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
+            <div><button onClick={sendMessage}>send</button></div>
         </div>
     );
 }
