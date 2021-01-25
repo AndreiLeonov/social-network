@@ -27,8 +27,10 @@ export const Messages: React.FC = () => {
     const [messages, setMessages] = React.useState<ChatMessageType[]>([]);
 
     React.useEffect( () => {
-        ws.addEventListener( "message", (event: any) => {
-            setMessages(JSON.parse(event.data));
+        ws.addEventListener( "message", (event: MessageEvent) => {
+            let newMessage = JSON.parse(event.data);
+            //this is not working in useEffect coz !!!CLOSURE!!! - setMessages([...messages, ...newMessage]);
+            setMessages( (prevMessages) => [...prevMessages, ...newMessage]);
         })
     }, [] );
 
@@ -41,7 +43,7 @@ export const Messages: React.FC = () => {
 
 export const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
     return (<div>
-        <img src={message.photo} alt=""/> <b>{message.userName}</b>
+        <img src={message.photo} alt="" style={{width:"50px"}}/> <b>{message.userName}</b>
         <br/>
         {message.message}
         <hr />
