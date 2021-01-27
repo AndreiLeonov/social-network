@@ -54,6 +54,14 @@ export const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
 export const AddMessageForm: React.FC = () => {
 
     const [message, setMessage] = React.useState("");
+    const [connectionStatus, setConnectionStatus] = React.useState<"pending" | "ready">("pending");
+
+    React.useEffect( () => {
+        ws.addEventListener("open", () => {
+            setConnectionStatus("ready")
+        })
+
+    }, [])
 
     const sendMessage = () => {
         if (!message) {
@@ -67,7 +75,7 @@ export const AddMessageForm: React.FC = () => {
     return (
         <div>
             <div><textarea onChange={ (e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
-            <div><button onClick={sendMessage}>send</button></div>
+            <div><button disabled={connectionStatus !== "ready"} onClick={sendMessage}>send</button></div>
         </div>
     );
 }
