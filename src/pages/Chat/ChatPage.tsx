@@ -1,8 +1,5 @@
 import React from "react";
 
-//connection
-const ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx");
-
 const ChatPage: React.FC = () => {
     return (
         <div>
@@ -13,51 +10,67 @@ const ChatPage: React.FC = () => {
 
 export const Chat: React.FC = () => {
 
+    const [wsChannel, setWsChannel] = React.useState<WebSocket | null>(null);
+
+    React.useEffect(() => {
+        function createChannel() {
+            setWsChannel(new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"));
+        }
+        createChannel();
+    }, [])
+
+    React.useEffect( () => {
+        wsChannel?.addEventListener("close", () => {
+            console.log("CLOSE");
+
+        })
+    },[wsChannel])
+
     return (
         <div>
-            <Messages />
-            <AddMessageForm />
+            <Messages ws={wsChannel}/>
+            <AddMessageForm ws={wsChannel} />
         </div>
     );
 
 }
 
-export const Messages: React.FC = () => {
+export const Messages: React.FC<{ws: WebSocket | null}> = ({ws}) => {
 
     const [messages, setMessages] = React.useState<ChatMessageType[]>([]);
 
-    React.useEffect( () => {
-        ws.addEventListener( "message", (event: MessageEvent) => {
+    React.useEffect(() => {
+        ws?.addEventListener("message", (event: MessageEvent) => {
             let newMessage = JSON.parse(event.data);
             //this is not working in useEffect coz !!!CLOSURE!!! - setMessages([...messages, ...newMessage]);
-            setMessages( (prevMessages) => [...prevMessages, ...newMessage]);
+            setMessages((prevMessages) => [...prevMessages, ...newMessage]);
         })
-    }, [] );
+    }, [ws]);
 
     return (
-        <div style={ {height:"400px", overflowY: "auto"} }>
-            {messages.map((m, index) => <Message key={index} message={m}/>)}
+        <div style={{ height: "400px", overflowY: "auto" }}>
+            {messages.map((m, index) => <Message key={index} message={m} />)}
         </div>
     );
 }
 
-export const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
+export const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
     return (<div>
-        <img src={message.photo} alt="" style={{width:"50px"}}/> <b>{message.userName}</b>
-        <br/>
+        <img src={message.photo} alt="" style={{ width: "50px" }} /> <b>{message.userName}</b>
+        <br />
         {message.message}
         <hr />
     </div>
     );
 }
 
-export const AddMessageForm: React.FC = () => {
+export const AddMessageForm: React.FC<{ws: WebSocket | null}> = ({ws}) => {
 
     const [message, setMessage] = React.useState("");
     const [connectionStatus, setConnectionStatus] = React.useState<"pending" | "ready">("pending");
 
-    React.useEffect( () => {
-        ws.addEventListener("open", () => {
+    React.useEffect(() => {
+        ws?.addEventListener("open", () => {
             setConnectionStatus("ready")
         })
 
@@ -67,14 +80,14 @@ export const AddMessageForm: React.FC = () => {
         if (!message) {
             return;
         } else {
-            ws.send(message);
+            ws?.send(message);
             setMessage("");
         }
     }
 
     return (
         <div>
-            <div><textarea onChange={ (e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
+            <div><textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
             <div><button disabled={connectionStatus !== "ready"} onClick={sendMessage}>send</button></div>
         </div>
     );
@@ -89,4 +102,4 @@ type ChatMessageType = {
     photo: string
     userId: number
     userName: string
-  }
+}
