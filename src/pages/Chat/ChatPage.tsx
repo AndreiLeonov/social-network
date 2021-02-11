@@ -74,14 +74,20 @@ export const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => 
 export const AddMessageForm: React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
 
     const [message, setMessage] = React.useState("");
-    const [connectionStatus, setConnectionStatus] = React.useState<"pending"|"ready">("pending");
+    const [connectionStatus, setConnectionStatus] = React.useState<"pending" | "ready">("pending");
 
     React.useEffect(() => {
         wsChannel?.addEventListener("open", () => {
             setConnectionStatus("ready")
         })
 
-    }, [])
+        return () => {
+            wsChannel?.removeEventListener("open", () => {
+                setConnectionStatus("ready")
+            })
+        }
+
+    }, [wsChannel])
 
     const sendMessage = () => {
         if (!message) {
@@ -95,7 +101,7 @@ export const AddMessageForm: React.FC<{wsChannel: WebSocket | null}> = ({wsChann
     return (
         <div>
             <div><textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
-            <div><button disabled={connectionStatus!=="ready"} onClick={sendMessage}>send</button></div>
+            <div><button disabled={connectionStatus !== "ready"} onClick={sendMessage}>send</button></div>
         </div>
     );
 }
