@@ -23,11 +23,14 @@ function createChannel() {
 
 
 export const chatAPI = {
-    subscribe(callback: subscriberType){
+    subscribe(callback: subscriberType) {
         subcribers.push(callback)
         return () => {
             subcribers = subcribers.filter(sub => sub !== callback)
         }
+    },
+    unsubscribe(callback: subscriberType) {
+        subcribers = subcribers.filter(sub => sub !== callback)
     }
 }
 
