@@ -50,6 +50,10 @@ export const stopGetMessages = (): ThunkType => async (dispatch) => {
     chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
 }
 
+export const sendMessages = (message: string): ThunkType => async (dispatch) => {
+    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+}
+
 export default chatReducer;
 
 export type InitialStateType = typeof initialState;

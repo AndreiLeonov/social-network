@@ -2,7 +2,7 @@
 
 let subcribers = [] as subscriberType[]
 
-let ws: WebSocket
+let ws: WebSocket | null = null;
 
 const closeHandler = () => {
     console.log("CLOSE");
@@ -31,6 +31,10 @@ export const chatAPI = {
     },
     unsubscribe(callback: subscriberType) {
         subcribers = subcribers.filter(sub => sub !== callback)
+    },
+    sendMessage(message: string) {
+        ws?.send(message)
+
     }
 }
 
