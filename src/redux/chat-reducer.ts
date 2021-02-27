@@ -43,15 +43,16 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
 }
 
 export const startGetMessages = (): ThunkType => async (dispatch) => {
-    chatAPI.subscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.start()
+    chatAPI.subscribe(newMessageHandlerCreator(dispatch));
 }
 
 export const stopGetMessages = (): ThunkType => async (dispatch) => {
-    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch));
 }
 
 export const sendMessages = (message: string): ThunkType => async (dispatch) => {
-    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.sendMessage(message);
 }
 
 export default chatReducer;

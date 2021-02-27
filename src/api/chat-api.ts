@@ -17,8 +17,10 @@ const messageHandler = (e: MessageEvent) => {
 
 function createChannel() {
     ws?.removeEventListener("close", closeHandler)
+    ws?.close()
     ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx");
     ws.addEventListener("close", closeHandler)
+    ws.addEventListener("message", messageHandler)
 }
 
 
@@ -34,6 +36,15 @@ export const chatAPI = {
     },
     sendMessage(message: string) {
         ws?.send(message)
+    },
+    start() {
+        createChannel()
+    },
+    stop() {
+        subcribers = []
+        ws?.removeEventListener("close", closeHandler)
+        ws?.removeEventListener("message", messageHandler)
+        ws?.close()
 
     }
 }

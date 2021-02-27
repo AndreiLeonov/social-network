@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatMessageType } from "../../api/chat-api";
-import { startGetMessages, stopGetMessages } from "../../redux/chat-reducer";
+import { sendMessages, startGetMessages, stopGetMessages } from "../../redux/chat-reducer";
 import { AppStateType } from "../../redux/redux-store";
 
 const ChatPage: React.FC = () => {
@@ -94,25 +94,27 @@ export const AddMessageForm: React.FC<{}> = () => {
 
     const [message, setMessage] = React.useState("");
     const [connectionStatus, setConnectionStatus] = React.useState<"pending" | "ready">("pending");
+    const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        wsChannel?.addEventListener("open", () => {
-            setConnectionStatus("ready")
-        })
+    // React.useEffect(() => {
+    //     wsChannel?.addEventListener("open", () => {
+    //         setConnectionStatus("ready")
+    //     })
 
-        return () => {
-            wsChannel?.removeEventListener("open", () => {
-                setConnectionStatus("ready")
-            })
-        }
+    //     return () => {
+    //         wsChannel?.removeEventListener("open", () => {
+    //             setConnectionStatus("ready")
+    //         })
+    //     }
 
-    }, [wsChannel])
+    // }, [wsChannel])
 
-    const sendMessage = () => {
+    const sendMessageHandler = () => {
         if (!message) {
             return;
         } else {
-            wsChannel?.send(message);
+            // wsChannel?.send(message);
+            dispatch(sendMessages(message))
             setMessage("");
         }
     }
@@ -120,7 +122,7 @@ export const AddMessageForm: React.FC<{}> = () => {
     return (
         <div>
             <div><textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
-            <div><button disabled={connectionStatus !== "ready"} onClick={sendMessage}>send</button></div>
+            <div><button disabled={false} onClick={sendMessageHandler}>send</button></div>
         </div>
     );
 }
