@@ -8,7 +8,8 @@ import {FormAction} from 'redux-form/lib/actions';
 import { chatAPI, ChatMessageType } from "../api/chat-api";
 
 let initialState = {
-    messages: [] as ChatMessageType[]
+    messages: [] as ChatMessageType[],
+    status: 'pending' as StatusType
 };
 
 const chatReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -18,6 +19,11 @@ const chatReducer = (state = initialState, action: ActionsType): InitialStateTyp
                 ...state,
                 messages: [...state.messages, ...action.payload.messages]
             }
+        case 'SN/chat/SET_STATUS':
+            return {
+                ...state,
+                status: action.payload.status
+            }
         default:
             return state;
     }
@@ -26,6 +32,9 @@ const chatReducer = (state = initialState, action: ActionsType): InitialStateTyp
 export const actions = {
     setMessages: (messages: ChatMessageType[]) => ({
         type: 'SN/chat/SET_MESSAGES', payload: {messages}
+    } as const),
+    setStatus: (status: StatusType) => ({
+        type: 'SN/chat/SET_STATUS', payload: {status}
     } as const),
 }
 
@@ -60,3 +69,4 @@ export default chatReducer;
 export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsType | FormAction>
+type StatusType = 'pending' | 'ready'
