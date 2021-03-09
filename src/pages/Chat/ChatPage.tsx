@@ -93,8 +93,9 @@ export const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => 
 export const AddMessageForm: React.FC<{}> = () => {
 
     const [message, setMessage] = React.useState("");
-    const [connectionStatus, setConnectionStatus] = React.useState<"pending" | "ready">("pending");
     const dispatch = useDispatch();
+    const status = useSelector((state: AppStateType) => state.chat.status)
+
 
     // React.useEffect(() => {
     //     wsChannel?.addEventListener("open", () => {
@@ -122,7 +123,7 @@ export const AddMessageForm: React.FC<{}> = () => {
     return (
         <div>
             <div><textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea></div>
-            <div><button disabled={false} onClick={sendMessageHandler}>send</button></div>
+            <div><button disabled={status !== 'ready'} onClick={sendMessageHandler}>send</button></div>
         </div>
     );
 }

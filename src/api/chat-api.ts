@@ -1,8 +1,13 @@
+import {StatusType} from '../redux/chat-reducer'
 
+let subcribers = {
+    'messages': [] as MessagesSubscriberType[],
+    'status': [] as StatusSubscriberType[]
+}
 
-let subcribers = [] as subscriberType[]
 
 let ws: WebSocket | null = null;
+
 
 const closeHandler = () => {
     console.log("CLOSE");
@@ -11,7 +16,7 @@ const closeHandler = () => {
 
 const messageHandler = (e: MessageEvent) => {
     const newMessage = JSON.parse(e.data);
-    subcribers.forEach(sub => sub(newMessage))
+    subcribers['messages'].forEach(sub => sub(newMessage))
 
 }
 
@@ -30,13 +35,13 @@ function createChannel() {
 
 
 export const chatAPI = {
-    subscribe(callback: subscriberType) {
-        subcribers.push(callback)
+    subscribe(eventName: EventsNameType, callback: MessagesSubscriberType) {
+        subcribers[eventName].push(callback)
         return () => {
-            subcribers = subcribers.filter(sub => sub !== callback)
+            subcribers[eventName] = subcribers[eventName].filter(sub => sub !== callback)
         }
     },
-    unsubscribe(callback: subscriberType) {
+    unsubscribe(callback: MessagesSubscriberType) {
         subcribers = subcribers.filter(sub => sub !== callback)
     },
     sendMessage(message: string) {
@@ -46,7 +51,8 @@ export const chatAPI = {
         createChannel()
     },
     stop() {
-        subcribers = []
+        subcribers.messages = []
+        subcribers.status = []
         cleanUp()
         ws?.close()
 
@@ -60,5 +66,6 @@ export type ChatMessageType = {
     userId: number
     userName: string
 }
-
-type subscriberType = (messages: ChatMessageType[]) => void 
+type EventsNameType = 'messages' | 'status'
+type MessagesSubscriberType = (messages: ChatMessageType[]) => void 
+type StatusSubscriberType = (status: StatusType) => void

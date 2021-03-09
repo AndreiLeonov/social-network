@@ -53,7 +53,7 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
 
 export const startGetMessages = (): ThunkType => async (dispatch) => {
     chatAPI.start()
-    chatAPI.subscribe(newMessageHandlerCreator(dispatch));
+    chatAPI.subscribe('message', newMessageHandlerCreator(dispatch));
 }
 
 export const stopGetMessages = (): ThunkType => async (dispatch) => {
@@ -69,4 +69,4 @@ export default chatReducer;
 export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsType | FormAction>
-type StatusType = 'pending' | 'ready'
+export type StatusType = 'pending' | 'ready'
