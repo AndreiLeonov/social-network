@@ -67,9 +67,9 @@ export const Messages: React.FC<{}> = ({}) => {
     const scrollHandler = (e: React.UIEvent<HTMLDivElement>) => {
         let element = e.currentTarget;
         if (Math.abs( (element.scrollHeight - element.scrollTop) - element.clientHeight ) < 300) {
-            setIsAutoScroll(true);
+            !isAutoScroll && setIsAutoScroll(true);
         } else {
-            setIsAutoScroll(false);
+            isAutoScroll && setIsAutoScroll(false);
         }
 
     }
@@ -89,7 +89,7 @@ export const Messages: React.FC<{}> = ({}) => {
     );
 }
 
-export const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
+export const Message: React.FC<{ message: ChatMessageType }> = React.memo (({ message }) => {
     return (<div>
         <img src={message.photo} alt="" style={{ width: "50px" }} /> <b>{message.userName}</b>
         <br />
@@ -97,7 +97,7 @@ export const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => 
         <hr />
     </div>
     );
-}
+})
 
 export const AddMessageForm: React.FC<{}> = () => {
 

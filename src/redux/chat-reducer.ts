@@ -17,7 +17,7 @@ const chatReducer = (state = initialState, action: ActionsType): InitialStateTyp
         case 'SN/chat/SET_MESSAGES':
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages]
+                messages: [...state.messages, ...action.payload.messages].filter( (message, index, array) => index >= array.length -50) //limiting messages on the screen 
             }
         case 'SN/chat/SET_STATUS':
             return {
