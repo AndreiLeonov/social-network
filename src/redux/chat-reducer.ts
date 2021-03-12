@@ -51,13 +51,32 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
 
 }
 
+let _statusChangedHandler: ((status: StatusType) => void) | null = null;
+
+const statusChangedHandlerCreator = (dispatch: Dispatch) => {
+    if (_statusChangedHandler == null) {
+        _statusChangedHandler = (status) => {
+            dispatch(actions.setStatus(status))
+        }
+    }
+
+    return _statusChangedHandler
+
+}
+
+
+
+
+
 export const startGetMessages = (): ThunkType => async (dispatch) => {
     chatAPI.start()
-    chatAPI.subscribe('message', newMessageHandlerCreator(dispatch));
+    chatAPI.subscribe('messages', newMessageHandlerCreator(dispatch));
+    chatAPI.subscribe('status', statusChangedHandlerCreator(dispatch));
 }
 
 export const stopGetMessages = (): ThunkType => async (dispatch) => {
-    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch));
+    chatAPI.unsubscribe('messages',newMessageHandlerCreator(dispatch));
+    chatAPI.unsubscribe('status',statusChangedHandlerCreator(dispatch));
 }
 
 export const sendMessages = (message: string): ThunkType => async (dispatch) => {
@@ -69,4 +88,4 @@ export default chatReducer;
 export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsType | FormAction>
-export type StatusType = 'pending' | 'ready'
+export type StatusType = 'pending' | 'ready' | 'error'

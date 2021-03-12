@@ -1,3 +1,4 @@
+import { Divider } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatMessageType } from "../../api/chat-api";
@@ -13,6 +14,8 @@ const ChatPage: React.FC = () => {
 }
 
 export const Chat: React.FC = () => {
+
+    const status = useSelector((state: AppStateType) => state.chat.status)
 
     // const [wsChannel, setWsChannel] = React.useState<WebSocket | null>(null);
 
@@ -52,8 +55,12 @@ export const Chat: React.FC = () => {
 
     return (
         <div>
+            {status === 'error' ? <div>SOME ERROR. PLS REFRESH PAGE</div> :
+            <>
             <Messages/>
             <AddMessageForm/>
+            </>
+    }
         </div>
     );
 
