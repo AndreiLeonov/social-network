@@ -1,5 +1,5 @@
 import { Divider } from "antd";
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatMessageType } from "../../api/chat-api";
 import { sendMessages, startGetMessages, stopGetMessages } from "../../redux/chat-reducer";
@@ -48,12 +48,11 @@ export const Chat: React.FC = () => {
 
     return (
         <div>
-            {status === 'error' ? <div>SOME ERROR. PLS REFRESH PAGE</div> :
+            {status === 'error' && <div>SOME ERROR. PLS REFRESH PAGE</div> }
             <>
             <Messages/>
             <AddMessageForm/>
             </>
-    }
         </div>
     );
 
@@ -61,21 +60,31 @@ export const Chat: React.FC = () => {
 
 export const Messages: React.FC<{}> = ({}) => {
 
-    // const [messages, setMessages] = React.useState<ChatMessageType[]>([]);
+    const messages = useSelector((state: AppStateType) => state.chat.messages);
+    const messagesAnchorRef = useRef<HTMLDivElement>(null);
+    const [isAutoScroll, setIsAutoScroll] = React.useState(false);
 
-    const messages = useSelector((state: AppStateType) => state.chat.messages)
+    const scrollHandler = (e: React.UIEvent<HTMLDivElement>) => {
+        let element = e.currentTarget;
+        if (Math.abs( (element.scrollHeight - element.scrollTop) - element.clientHeight ) < 300) {
+            setIsAutoScroll(true);
+        } else {
+            setIsAutoScroll(false);
+        }
 
-    // React.useEffect(() => {
-    //     wsChannel?.addEventListener("message", (event: MessageEvent) => {
-    //         let newMessage = JSON.parse(event.data);
-    //         //this is not working in useEffect coz !!!CLOSURE!!! - setMessages([...messages, ...newMessage]);
-    //         setMessages((prevMessages) => [...prevMessages, ...newMessage]);
-    //     })
-    // }, [wsChannel]);
+    }
+
+    React.useEffect( () => {
+        if (isAutoScroll){
+            messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+        }
+
+    },[messages])
 
     return (
-        <div style={{ height: "400px", overflowY: "auto" }}>
+        <div style={{ height: "400px", overflowY: "auto" }} onScroll={scrollHandler}>
             {messages.map((m, index) => <Message key={index} message={m} />)}
+            <div ref={messagesAnchorRef}></div> {/* this ref need for scroll */}
         </div>
     );
 }
