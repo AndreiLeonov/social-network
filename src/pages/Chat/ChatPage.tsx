@@ -45,13 +45,6 @@ export const Chat: React.FC = () => {
 
         },[])
         
-    //     createChannel();
-
-    //     return () => {
-    //         ws.removeEventListener("close", closeHandler);
-    //         ws.close();
-    //     }
-    // }, [])
 
     return (
         <div>
